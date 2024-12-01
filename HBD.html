@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Game</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #A7C7E7, #F4C2C2);
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #5A2D6C;
+            margin-bottom: 10px;
+        }
+
+        .container {
+            margin: 30px 0;
+            transition: opacity 1s ease-out;
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .gif-container {
+            margin-top: 20px;
+        }
+
+        button {
+            font-size: 1.2rem;
+            padding: 15px 30px;
+            background-color: #5A2D6C;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background-color 0.3s ease, transform 0.2s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background-color: #3E1A4B;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            background-color: #2C0F36;
+            transform: scale(0.95);
+        }
+
+        .message-section {
+            display: none;
+            margin-top: 50px;
+            animation: fadeIn 2s ease-in-out;
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            overflow: auto;
+        }
+
+        .message {
+            font-size: 2rem;
+            color: #5A2D6C;
+            margin-bottom: 20px;
+        }
+
+        .celebration {
+            font-size: 3rem;
+            color: #A7C7E7;
+            animation: bounce 1s infinite alternate;
+            margin-bottom: 20px;
+        }
+
+        .confetti {
+            position: absolute;
+            top: -10px;
+            width: 15px;
+            height: 15px;
+            background-color: #A7C7E7;
+            border-radius: 50%;
+            animation: confetti-fall 3s linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes confetti-fall {
+            from {
+                transform: translateY(-200px) rotate(0deg);
+            }
+            to {
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+
+        .intro-text {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            animation: fadeInText 1.5s ease-in-out;
+        }
+
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .loading-animation {
+            display: none;
+            font-size: 2rem;
+            color: #5A2D6C;
+            animation: fadeIn 1.5s ease-in-out infinite alternate;
+        }
+
+        .personal-note {
+            display: none;
+            margin-top: 30px;
+            font-size: 1.5rem;
+            color: #5A2D6C;
+        }
+
+        .message-gif {
+            display: none;
+            margin-top: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #F4C2C2;
+            font-size: 3rem;
+            animation: highlight 2s ease-in-out infinite;
+        }
+
+        @keyframes highlight {
+            0% {
+                color: #F4C2C2;
+            }
+            50% {
+                color: #A7C7E7;
+            }
+            100% {
+                color: #F4C2C2;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🎉 Hello, princess! 🎉</h1>
+    <p class="intro-text">I have a fun game for you. Let's see if you can guess what I adore most about you!</p>
+    <div class="container" id="questionSection" >
+        <h2>What’s My Favorite Thing About You? 🤔</h2>
+        <div class="gif-container">
+          		  <img src="https://media.tenor.com/cofRHcGGOfoAAAAi/shy-cute.gif" alt="Cute Shy Gif" width="200">
+        </div>
+        <button onclick="checkAnswer('smile')">Your smile. 😊</button>
+        <button onclick="checkAnswer('brain')">Your brilliant brain—you're smarter than me for sure! 🧠</button>
+        <button onclick="checkAnswer('boobs')">Your boobs 😋🥵 </button>
+    </div>
+
+    <div class="loading-animation" id="loadingAnimation">
+        Loading...
+    </div>
+
+    <div class="container message-section" id="messageSection">
+        <div class="message-gif">
+            <img src="https://media.tenor.com/pVTyiTGidkQAAAAi/bubu-kiss-dudu-kiss-kiss.gif" alt="Kiss Gif" width="200">
+        </div>
+        <p class="message">Haha, just kidding! My favorite thing about you is EVERYTHING. ❤️</p>
+        <p class="celebration"><span class="highlight">Happy Birthday, my love!</span> Wishing you a day full of happiness, love, and everything you deserve 🎂💖</p>
+        <p class="message">I’m so lucky to have you in my life 💕</p>
+    </div>
+
+    <div class="personal-note" id="personalNote">
+     
+    </div>
+
+    <script>
+        function checkAnswer(answer) {
+            const questionSection = document.getElementById("questionSection");
+            const loadingAnimation = document.getElementById("loadingAnimation");
+            const messageSection = document.getElementById("messageSection");
+            const messageGif = document.querySelector(".message-gif");
+            const personalNote = document.getElementById("personalNote");
+
+            questionSection.style.opacity = 0;
+            setTimeout(() => {
+                questionSection.style.display = "none";
+                loadingAnimation.style.display = "block";
+                setTimeout(() => {
+                    loadingAnimation.style.display = "none";
+                    messageGif.style.display = "block";
+                    messageSection.style.display = "block";
+                    personalNote.style.display = "block";
+                    const confettiCount = 100;
+                    for (let i = 0; i < confettiCount; i++) {
+                        createConfetti();
+                    }
+                }, 2000);
+            }, 1000);
+        }
+
+        function createConfetti() {
+            const confetti = document.createElement("div");
+            confetti.className = "confetti";
+            confetti.style.left = Math.random() * 100 + "vw";
+            confetti.style.animationDelay = Math.random() * 2 + "s";
+            confetti.style.backgroundColor = getRandomColor();
+            document.body.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 3000);
+        }
+
+        function getRandomColor() {
+            const colors = ["#A7C7E7", "#FFD700", "#87CEEB", "#FF4500", "#32CD32"];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+    </script>
+</body>
+</html>
