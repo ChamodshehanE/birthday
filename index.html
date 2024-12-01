@@ -14,7 +14,8 @@
             text-align: center;
             margin: 0;
             padding: 20px;
-            /* Removed overflow: hidden */
+            min-height: 100vh; /* Allow the body to take full viewport height */
+            overflow-y: auto; /* Allow scrolling on the vertical axis */
         }
 
         h1 {
